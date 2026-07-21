@@ -349,13 +349,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('submit-btn');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const name = document.getElementById('form-name').value;
       const email = document.getElementById('form-email').value;
       const subject = document.getElementById('form-subject').value;
       const message = document.getElementById('form-message').value;
+
+      // Validate all fields
+      if (!name || !email || !subject || !message) {
+        formStatus.textContent = 'Oops! Please fill in all fields before sending.';
+        formStatus.className = 'form-status-message error';
+        return;
+      }
 
       // Update button state to loading
       submitBtn.disabled = true;
@@ -368,34 +375,46 @@ document.addEventListener('DOMContentLoaded', () => {
       formStatus.textContent = '';
       formStatus.className = 'form-status-message';
 
-      // Simulate API submit delay
-      setTimeout(() => {
-        // Validation check (already checked by HTML5, but for safety)
-        if (name && email && subject && message) {
+      try {
+        const formData = new FormData(contactForm);
+        const jsonData = Object.fromEntries(formData);
+
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(jsonData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
           formStatus.textContent = `Thank you, ${name}! Your message has been sent successfully.`;
           formStatus.classList.add('success');
-          
-          // Clear inputs
           contactForm.reset();
         } else {
-          formStatus.textContent = 'Oops! Please fill in all fields before sending.';
+          formStatus.textContent = result.message || 'Something went wrong. Please try again later.';
           formStatus.classList.add('error');
         }
+      } catch (error) {
+        formStatus.textContent = 'Network error. Please check your connection and try again.';
+        formStatus.classList.add('error');
+      }
 
-        // Restore button state
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnContent;
-        if (typeof lucide !== 'undefined') {
-          lucide.createIcons(); // refresh icon
-        }
-        
-        // Remove status message after 6 seconds
-        setTimeout(() => {
-          formStatus.textContent = '';
-          formStatus.className = 'form-status-message';
-        }, 6000);
-
-      }, 1500);
+      // Restore button state
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnContent;
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons(); // refresh icon
+      }
+      
+      // Remove status message after 6 seconds
+      setTimeout(() => {
+        formStatus.textContent = '';
+        formStatus.className = 'form-status-message';
+      }, 6000);
     });
   }
 });
