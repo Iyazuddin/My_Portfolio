@@ -24,8 +24,6 @@
       property="og:description"
       content="Passionate frontend developer focused on building clean, responsive, and interactive web applications using modern technologies."
     />
-    <meta property="og:image" content="assets/profile_avatar.png" />
-
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta
@@ -37,13 +35,11 @@
       property="twitter:description"
       content="Passionate frontend developer focused on building clean, responsive, and interactive web applications using modern technologies."
     />
-    <meta property="twitter:image" content="assets/profile_avatar.png" />
-
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Anton (display) + Roboto Flex (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600&display=swap"
       rel="stylesheet"
     />
 
@@ -60,6 +56,30 @@
     <!-- Dynamic Interactive Particle Canvas -->
     <canvas id="particle-canvas"></canvas>
 
+    <!-- Cursor Spotlight Glow -->
+    <div id="cursor-glow" aria-hidden="true"></div>
+
+    <!-- Custom Velocity-Rotating Cursor -->
+    <div id="custom-cursor" aria-hidden="true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="25"
+        height="27"
+        viewBox="0 0 50 54"
+        fill="none"
+      >
+        <path
+          d="M42.6817 41.1495L27.5103 6.79925C26.7269 5.02557 24.2082 5.02558 23.3927 6.79925L7.59814 41.1495C6.75833 42.9759 8.52712 44.8902 10.4125 44.1954L24.3757 39.0496C24.8829 38.8627 25.4385 38.8627 25.9422 39.0496L39.8121 44.1954C41.6849 44.8902 43.4884 42.9759 42.6817 41.1495Z"
+          fill="black"
+        />
+        <path
+          d="M43.7146 40.6933L28.5431 6.34306C27.3556 3.65428 23.5772 3.69516 22.3668 6.32755L6.57226 40.6778C5.3134 43.4156 7.97238 46.298 10.803 45.2549L24.7662 40.109C25.0221 40.0147 25.2999 40.0156 25.5494 40.1082L39.4193 45.254C42.2261 46.2953 44.9254 43.4347 43.7146 40.6933Z"
+          stroke="white"
+          stroke-width="2.25825"
+        />
+      </svg>
+    </div>
+
     <!-- Custom Scroll Progress Bar -->
     <div class="scroll-progress-container">
       <div class="scroll-progress-bar" id="scroll-progress"></div>
@@ -69,33 +89,33 @@
     <header class="navbar" id="navbar">
       <div class="nav-container">
         <a href="#home" class="logo">
-          <span class="logo-accent">&lt;</span>Iyazuddin<span
-            class="logo-accent"
-          >
-            /&gt;</span
-          >
+          Iyazuddin<span class="logo-dot">.</span>
         </a>
 
         <!-- Desktop Navigation Menu -->
         <nav class="nav-menu" id="nav-menu">
           <a href="#home" class="nav-link active" id="nav-link-home">Home</a>
           <a href="#about" class="nav-link" id="nav-link-about">About</a>
-          <a href="#skills" class="nav-link" id="nav-link-skills">Skills</a>
+          <a href="#stack" class="nav-link" id="nav-link-stack">Stack</a>
+          <a href="#journey" class="nav-link" id="nav-link-journey">Journey</a>
           <a href="#projects" class="nav-link" id="nav-link-projects"
             >Projects</a
           >
           <a href="#contact" class="nav-link" id="nav-link-contact">Contact</a>
         </nav>
 
-        <!-- CTA Resume Download Button (Desktop) -->
+        <!-- CTA Buttons (Desktop) -->
         <div class="nav-cta">
+          <a href="#contact" class="btn-primary btn-sm nav-cta-btn magnetic">
+            Get In Touch
+          </a>
           <a
             href="resume.pdf"
             download="Iyazuddin_Resume.pdf"
-            class="btn-secondary nav-resume-btn"
+            class="btn-secondary btn-sm nav-resume-btn magnetic"
             id="nav-resume"
           >
-            <i data-lucide="download"></i> Resume
+            Resume
           </a>
         </div>
 
@@ -118,7 +138,10 @@
       <nav class="mobile-nav-menu">
         <a href="#home" class="mobile-nav-link" id="m-nav-home">Home</a>
         <a href="#about" class="mobile-nav-link" id="m-nav-about">About</a>
-        <a href="#skills" class="mobile-nav-link" id="m-nav-skills">Skills</a>
+        <a href="#stack" class="mobile-nav-link" id="m-nav-stack">Stack</a>
+        <a href="#journey" class="mobile-nav-link" id="m-nav-journey"
+          >Journey</a
+        >
         <a href="#projects" class="mobile-nav-link" id="m-nav-projects"
           >Projects</a
         >
@@ -131,7 +154,7 @@
           class="btn-primary mobile-resume-btn"
           id="m-nav-resume"
         >
-          <i data-lucide="download"></i> Download Resume
+          Resume
         </a>
       </nav>
     </div>
@@ -140,38 +163,40 @@
       <!-- Hero Section -->
       <section id="home" class="hero">
         <div class="hero-container container">
-          <div class="hero-content scroll-reveal">
-            <div class="badge-glow">
+          <div class="hero-content">
+            <div class="badge-glow hero-load">
               <span class="glow-dot"></span>
               <span class="badge-text">Available for Opportunities</span>
             </div>
-            <h1 class="hero-title">
-              Hi, I'm <span class="gradient-text">Iyazuddin</span>
+            <h1 class="hero-title hero-load d2">
+              <span class="hero-title-line text-primary">Frontend</span>
+              <span class="hero-title-line">Developer</span>
             </h1>
-            <h2 class="hero-subtitle">
-              I am a <span class="typewriter" id="typewriter"></span>
-            </h2>
-            <p class="hero-description">
-              Passionate frontend developer focused on building clean,
-              responsive, and interactive web applications using modern
-              technologies. Specialize in crafting intuitive user experiences.
+            <p class="hero-description hero-load d3">
+              Hi! I'm <strong>Iyazuddin</strong>. A creative frontend developer
+              building fast, responsive, and interactive web experiences.
             </p>
 
-            <div class="hero-actions">
-              <a href="#projects" class="btn-primary" id="hero-view-work">
-                View My Work <i data-lucide="arrow-right"></i>
+            <div class="hero-actions hero-load d4">
+              <a href="#contact" class="btn-primary magnetic" id="hero-contact">
+                Let's Talk <i data-lucide="arrow-right"></i>
               </a>
-              <a href="#contact" class="btn-secondary" id="hero-contact">
-                Let's Connect
+              <a
+                href="resume.pdf"
+                download="Iyazuddin_Resume.pdf"
+                class="btn-secondary magnetic"
+                id="hero-resume"
+              >
+                Download Resume
               </a>
             </div>
 
-            <div class="social-links-container">
+            <div class="social-links-container hero-load d5">
               <a
                 href="https://github.com/Iyazuddin"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="social-icon"
+                class="social-icon magnetic"
                 aria-label="GitHub"
                 id="social-github"
               >
@@ -195,7 +220,7 @@
                 href="https://www.linkedin.com/in/iyaz-uddin-99536834b"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="social-icon"
+                class="social-icon magnetic"
                 aria-label="LinkedIn"
                 id="social-linkedin"
               >
@@ -219,7 +244,7 @@
               </a>
               <a
                 href="mailto:ayazuddin31j@gmail.com"
-                class="social-icon"
+                class="social-icon magnetic"
                 aria-label="Email"
                 id="social-email"
               >
@@ -228,628 +253,359 @@
             </div>
           </div>
 
-          <div class="hero-image-wrapper scroll-reveal delay-200">
-            <div class="blob-glow"></div>
-            <div class="image-glass-card">
-              <img
-                src="assets/profile_avatar.png"
-                alt="Iyazuddin Profile Illustration"
-                class="profile-img"
-              />
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-num gradient-text" data-count="4" data-suffix="+">4+</span>
+              <span class="stat-label">Projects Built</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num gradient-text" data-count="8" data-suffix="+">8+</span>
+              <span class="stat-label">Technologies</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num gradient-text" data-count="100" data-suffix="%">100%</span>
+              <span class="stat-label">Responsive</span>
             </div>
           </div>
         </div>
 
-        <div class="scroll-indicator">
-          <a href="#about" aria-label="Scroll down">
-            <div class="mouse-icon">
-              <span class="wheel"></span>
-            </div>
-          </a>
-        </div>
+        <svg
+          class="banner-arrow"
+          viewBox="0 0 120 48"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M0 18h82v10H0z" />
+          <path d="M82 4l34 20-34 20z" />
+        </svg>
       </section>
 
       <!-- About Section -->
       <section id="about" class="about-section">
         <div class="container">
-          <div class="section-header scroll-reveal">
-            <span class="section-tag">01. About Me</span>
-            <h2 class="section-title">My Journey & Background</h2>
-            <div class="title-underline"></div>
+          <div class="section-heading scroll-reveal">
+            <span class="section-index">01</span>
+            <h2>About Me</h2>
           </div>
 
-          <div class="about-grid">
-            <div class="about-text scroll-reveal">
-              <p class="paragraph">
-                I am currently pursuing my
-                <strong>BCA (Bachelor of Computer Applications)</strong>, which
-                has provided me with a solid foundation in computer science and
-                software development principles. My true passion lies in the
-                frontend landscape, where logic meets visual creativity.
-              </p>
-              <p class="paragraph">
-                I enjoy translating complex user requirements into highly
-                responsive, accessible, and user-friendly digital interfaces. I
-                am continuously learning and experimenting with modern frontend
-                tools, striving to build applications that perform exceptionally
-                well and feel alive.
-              </p>
+          <div class="about-text scroll-reveal">
+            <h3 class="about-lead">
+              This is <span class="text-primary">me.</span>
+            </h3>
+            <p class="paragraph">
+              I am currently pursuing my
+              <strong>BCA (Bachelor of Computer Applications)</strong>, which
+              has given me a solid foundation in computer science and software
+              development principles. My true passion lives in the frontend
+              landscape, where logic meets visual creativity.
+            </p>
+            <p class="paragraph">
+              I enjoy translating complex requirements into responsive,
+              accessible, and user-friendly interfaces. I'm continuously
+              learning and experimenting with modern frontend tools —
+              building applications that perform exceptionally well and feel
+              alive.
+            </p>
+          </div>
 
-              <div class="stats-grid">
-                <div class="stat-card">
-                  <span class="stat-num gradient-text">4+</span>
-                  <span class="stat-label">Featured Projects</span>
-                </div>
-                <div class="stat-card">
-                  <span class="stat-num gradient-text">8+</span>
-                  <span class="stat-label">Tech Stack Tools</span>
-                </div>
-                <div class="stat-card">
-                  <span class="stat-num gradient-text">100%</span>
-                  <span class="stat-label">Responsive Designs</span>
-                </div>
-              </div>
+          <div class="about-facts scroll-reveal delay-200">
+            <div class="about-fact">
+              <span class="fact-label">Currently</span>
+              <span class="fact-value">BCA Student</span>
             </div>
-
-            <div class="about-cards-container scroll-reveal delay-200">
-              <div class="glass-info-card">
-                <div class="info-card-header">
-                  <i data-lucide="code-2" class="text-accent-cyan"></i>
-                  <h3>Frontend Architecture</h3>
-                </div>
-                <p>
-                  Designing websites with modern modular codebases, responsive
-                  layouts, and highly interactive components.
-                </p>
-              </div>
-
-              <div class="glass-info-card">
-                <div class="info-card-header">
-                  <i data-lucide="zap" class="text-accent-violet"></i>
-                  <h3>Interactive UX</h3>
-                </div>
-                <p>
-                  Creating seamless transitions, smooth animations, and
-                  optimized load times for enhanced user engagement.
-                </p>
-              </div>
+            <div class="about-fact">
+              <span class="fact-label">Focus</span>
+              <span class="fact-value">Fullstack Developer</span>
+            </div>
+            <div class="about-fact">
+              <span class="fact-label">Based In</span>
+              <span class="fact-value">India</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Skills Section -->
-      <section id="skills" class="skills-section">
+      <!-- My Stack Section -->
+      <section id="stack" class="stack-section">
         <div class="container">
-          <div class="section-header scroll-reveal">
-            <span class="section-tag">02. Technologies</span>
-            <h2 class="section-title">My Tech Stack</h2>
-            <div class="title-underline"></div>
-            <p class="section-subtitle">
-              Here are the languages, frameworks, and tools I use to bring
-              interfaces to life.
-            </p>
+          <div class="section-heading scroll-reveal">
+            <span class="section-index">02</span>
+            <h2>My Stack</h2>
           </div>
 
-          <div class="skills-grid">
+          <div class="stack-categories">
             <!-- Frontend Category -->
-            <div class="skills-category-card scroll-reveal">
-              <div class="category-header">
-                <i data-lucide="monitor" class="text-accent-cyan"></i>
-                <h3>Frontend</h3>
+            <div class="stack-category scroll-reveal">
+              <h3 class="stack-category-title">Frontend</h3>
+              <div class="stack-list">
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/html5/E34F26" alt="" width="26" height="26" loading="lazy" />
+                  HTML5
+                </span>
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/css/1572B6" alt="" width="26" height="26" loading="lazy" />
+                  CSS3
+                </span>
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" width="26" height="26" loading="lazy" />
+                  JavaScript
+                </span>
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/react/61DAFB" alt="" width="26" height="26" loading="lazy" />
+                  React
+                </span>
               </div>
-              <div class="skills-list">
-                <div class="skill-badge" id="skill-html">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="skill-icon"
-                  >
-                    <path d="M12 2L3 4.5l1.5 14 7.5 3.5 7.5-3.5 1.5-14z" />
-                    <path d="M12 6v12.5" />
-                  </svg>
-                  <span>HTML5</span>
-                </div>
-                <div class="skill-badge" id="skill-css">
-                  <i data-lucide="code" class="skill-icon"></i>
-                  <span>CSS3</span>
-                </div>
-                <div class="skill-badge" id="skill-js">
-                  <i data-lucide="terminal" class="skill-icon"></i>
-                  <span>JavaScript</span>
-                </div>
-                <div class="skill-badge" id="skill-react">
-                  <i data-lucide="atom" class="skill-icon"></i>
-                  <span>React</span>
-                </div>
+            </div>
+
+            <!-- Backend Category -->
+            <div class="stack-category scroll-reveal delay-200">
+              <h3 class="stack-category-title">Backend</h3>
+              <div class="stack-list">
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/nodedotjs/5FA04E" alt="" width="26" height="26" loading="lazy" />
+                  Node.js
+                </span>
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/express/FFFFFF" alt="" width="26" height="26" loading="lazy" />
+                  Express
+                </span>
+              </div>
+            </div>
+
+            <!-- Databases Category -->
+            <div class="stack-category scroll-reveal delay-300">
+              <h3 class="stack-category-title">Databases</h3>
+              <div class="stack-list">
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/mysql/4479A1" alt="" width="26" height="26" loading="lazy" />
+                  MySQL
+                </span>
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/mongodb/47A248" alt="" width="26" height="26" loading="lazy" />
+                  MongoDB
+                </span>
               </div>
             </div>
 
             <!-- Tools Category -->
-            <div class="skills-category-card scroll-reveal delay-200">
-              <div class="category-header">
-                <i data-lucide="settings" class="text-accent-violet"></i>
-                <h3>Tools & Flow</h3>
-              </div>
-              <div class="skills-list">
-                <div class="skill-badge" id="skill-git">
-                  <i data-lucide="git-branch" class="skill-icon"></i>
-                  <span>Git</span>
-                </div>
-                <div class="skill-badge" id="skill-github">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="skill-icon"
-                  >
-                    <path
-                      d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                    />
-                  </svg>
-                  <span>GitHub</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Other Category -->
-            <div class="skills-category-card scroll-reveal delay-400">
-              <div class="category-header">
-                <i data-lucide="database" class="text-accent-emerald"></i>
-                <h3>Other Skills</h3>
-              </div>
-              <div class="skills-list">
-                <div class="skill-badge" id="skill-python">
-                  <i data-lucide="file-code-2" class="skill-icon"></i>
-                  <span>Python</span>
-                </div>
-                <div class="skill-badge" id="skill-sql">
-                  <i data-lucide="database" class="skill-icon"></i>
-                  <span>SQL</span>
-                </div>
+            <div class="stack-category scroll-reveal delay-400">
+              <h3 class="stack-category-title">Tools &amp; Flow</h3>
+              <div class="stack-list">
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/git/F05032" alt="" width="26" height="26" loading="lazy" />
+                  Git
+                </span>
+                <span class="stack-item">
+                  <img class="stack-icon" src="https://cdn.simpleicons.org/github/FFFFFF" alt="" width="26" height="26" loading="lazy" />
+                  GitHub
+                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Projects Section -->
+      <!-- My Journey Section -->
+      <section id="journey" class="journey-section">
+        <div class="container">
+          <div class="section-heading scroll-reveal">
+            <span class="section-index">03</span>
+            <h2>My Journey</h2>
+          </div>
+
+          <div class="journey-list">
+            <div class="journey-item scroll-reveal">
+              <span class="journey-year">2024</span>
+              <div class="journey-body">
+                <h3>Started BCA</h3>
+                <p>
+                  Began my Bachelor of Computer Applications and fell in love
+                  with frontend development — the place where logic meets
+                  visual creativity.
+                </p>
+              </div>
+            </div>
+
+            <div class="journey-item scroll-reveal">
+              <span class="journey-year">2025</span>
+              <div class="journey-body">
+                <h3>First Real Builds</h3>
+                <p>
+                  Shipped the Todo App, Drum Kit, Spotify Clone, and Quiz Spark
+                  — learning by building, one project at a time.
+                </p>
+              </div>
+            </div>
+
+            <div class="journey-item scroll-reveal">
+              <span class="journey-year">2026</span>
+              <div class="journey-body">
+                <h3>Going Deeper</h3>
+                <p>
+                  Currently going deep on React and modern JavaScript —
+                  leveling up into a production-grade frontend developer.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Selected Projects Section -->
       <section id="projects" class="projects-section">
         <div class="container">
-          <div class="section-header scroll-reveal">
-            <span class="section-tag">03. Showcase</span>
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="title-underline"></div>
-            <p class="section-subtitle">
-              A collection of web applications I've built, reflecting my
-              development skills.
-            </p>
+          <div class="section-heading scroll-reveal">
+            <span class="section-index">04</span>
+            <h2>Selected Projects</h2>
           </div>
 
-          <!-- Projects Filter Tabs -->
-          <div class="project-filters scroll-reveal">
-            <button class="filter-btn active" data-filter="all" id="filter-all">
-              All Projects
-            </button>
-            <button class="filter-btn" data-filter="react" id="filter-react">
-              React
-            </button>
-            <button
-              class="filter-btn"
-              data-filter="vanilla"
-              id="filter-vanilla"
-            >
-              Vanilla JS
-            </button>
-          </div>
-
-          <div class="projects-grid">
-            <!-- Todo App Card -->
+          <div class="projects-list">
+            <!-- Todo App -->
             <div class="project-card scroll-reveal" data-category="react">
-              <div class="project-image-container">
-                <img
-                  src="assets/todo_app.png"
-                  alt="Todo App Mockup"
-                  class="project-img"
-                />
-                <div class="project-overlay">
-                  <div class="overlay-links">
-                    <a
-                      href="https://iyaz-todoapp.netlify.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="project-overlay-link"
-                      title="Live Preview"
-                      id="todo-overlay-live"
-                    >
-                      <i data-lucide="external-link"></i>
-                    </a>
-                    <a
-                      href="https://github.com/Iyazuddin/TodoApp"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="project-overlay-link"
-                      title="View Code"
-                      id="todo-overlay-code"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+              <div class="project-row-inner">
+                <span class="project-num">_01</span>
+                <div class="project-content">
+                  <div class="project-top">
+                    <h3 class="project-title">Todo App</h3>
+                    <div class="project-links">
+                      <a
+                        href="https://iyaz-todoapp.netlify.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Live Preview"
+                        id="todo-live-link"
                       >
-                        <path
-                          d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                        />
-                      </svg>
-                    </a>
+                        <i data-lucide="external-link"></i>
+                      </a>
+                      <a
+                        href="https://github.com/Iyazuddin/TodoApp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="View Code"
+                        id="todo-code-link"
+                      >
+                        <i data-lucide="github"></i>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div class="project-info">
-                <div class="project-meta">
-                  <span class="project-category">React</span>
-                  <span class="project-status">Featured</span>
-                </div>
-                <h3 class="project-title">Todo App</h3>
-                <p class="project-desc">
-                  A modern task management application built with React that
-                  helps users organize tasks efficiently using priority levels.
-                  Users can add, delete, and reorder tasks with a clean and
-                  responsive interface. Data is stored using local storage to
-                  maintain tasks across sessions.
-                </p>
-
-                <div class="project-tech-tags">
-                  <span class="tech-tag">React</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">CSS3</span>
-                  <span class="tech-tag">LocalStorage</span>
-                </div>
-
-                <div class="project-actions">
-                  <a
-                    href="https://iyaz-todoapp.netlify.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-primary btn-sm"
-                    id="todo-live-btn"
-                  >
-                    Live Demo <i data-lucide="external-link"></i>
-                  </a>
-                  <a
-                    href="https://github.com/Iyazuddin/TodoApp"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-secondary btn-sm"
-                    id="todo-code-btn"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      style="margin-right: 4px"
-                    >
-                      <path
-                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                      />
-                    </svg>
-                    Code
-                  </a>
+                  <p class="project-desc">
+                    A modern task management app built with React. Add, delete,
+                    and reorder tasks with priority levels — data persists
+                    across sessions via local storage.
+                  </p>
+                  <div class="project-tech-tags">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">LocalStorage</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Drum Kit Card -->
-            <div
-              class="project-card scroll-reveal delay-200"
-              data-category="vanilla"
-            >
-              <div class="project-image-container">
-                <img
-                  src="assets/drum_kit.png"
-                  alt="Drum Kit Web App Mockup"
-                  class="project-img"
-                />
-                <div class="project-overlay">
-                  <div class="overlay-links">
-                    <a
-                      href="https://iyaz-drumkit.netlify.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="project-overlay-link"
-                      title="Live Preview"
-                      id="drum-overlay-live"
-                    >
-                      <i data-lucide="external-link"></i>
-                    </a>
-                    <a
-                      href="https://github.com/Iyazuddin/Drum_Kit"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="project-overlay-link"
-                      title="View Code"
-                      id="drum-overlay-code"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+            <!-- Drum Kit -->
+            <div class="project-card scroll-reveal" data-category="vanilla">
+              <div class="project-row-inner">
+                <span class="project-num">_02</span>
+                <div class="project-content">
+                  <div class="project-top">
+                    <h3 class="project-title">Drum Kit Web App</h3>
+                    <div class="project-links">
+                      <a
+                        href="https://iyaz-drumkit.netlify.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Live Preview"
+                        id="drum-live-link"
                       >
-                        <path
-                          d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                        />
-                      </svg>
-                    </a>
+                        <i data-lucide="external-link"></i>
+                      </a>
+                      <a
+                        href="https://github.com/Iyazuddin/Drum_Kit"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="View Code"
+                        id="drum-code-link"
+                      >
+                        <i data-lucide="github"></i>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div class="project-info">
-                <div class="project-meta">
-                  <span class="project-category">Vanilla JS</span>
-                  <span class="project-status">Featured</span>
-                </div>
-                <h3 class="project-title">Drum Kit Web App</h3>
-                <p class="project-desc">
-                  An interactive drum kit application that plays different drum
-                  sounds based on keyboard and mouse inputs. Includes real-time
-                  audio feedback, active state key animations, and engaging UI
-                  interactions for a fun user experience.
-                </p>
-
-                <div class="project-tech-tags">
-                  <span class="tech-tag">HTML5</span>
-                  <span class="tech-tag">CSS3</span>
-                  <span class="tech-tag">JavaScript</span>
-                  <span class="tech-tag">Audio API</span>
-                </div>
-
-                <div class="project-actions">
-                  <a
-                    href="https://iyaz-drumkit.netlify.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-primary btn-sm"
-                    id="drum-live-btn"
-                  >
-                    Live Demo <i data-lucide="external-link"></i>
-                  </a>
-                  <a
-                    href="https://github.com/Iyazuddin/Drum_Kit"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-secondary btn-sm"
-                    id="drum-code-btn"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      style="margin-right: 4px"
-                    >
-                      <path
-                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                      />
-                    </svg>
-                    Code
-                  </a>
+                  <p class="project-desc">
+                    An interactive drum kit that plays different sounds on
+                    keyboard and mouse input — with real-time audio feedback
+                    and active key animations.
+                  </p>
+                  <div class="project-tech-tags">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Audio API</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Spotify Clone Card -->
-            <div
-              class="project-card scroll-reveal delay-300"
-              data-category="vanilla"
-            >
-              <div class="project-image-container">
-                <img
-                  src="assets/spotify_clone.png"
-                  alt="Spotify Clone Web App Mockup"
-                  class="project-img"
-                />
-                <div class="project-overlay">
-                  <div class="overlay-links">
-                    <a
-                      href="https://github.com/Iyazuddin/Spotify_Clone"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="project-overlay-link"
-                      title="View Code"
-                      id="spotify-overlay-code"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+            <!-- Spotify Clone -->
+            <div class="project-card scroll-reveal" data-category="vanilla">
+              <div class="project-row-inner">
+                <span class="project-num">_03</span>
+                <div class="project-content">
+                  <div class="project-top">
+                    <h3 class="project-title">Spotify Clone</h3>
+                    <div class="project-links">
+                      <a
+                        href="https://github.com/Iyazuddin/Spotify_Clone"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="View Code"
+                        id="spotify-code-link"
                       >
-                        <path
-                          d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                        />
-                      </svg>
-                    </a>
+                        <i data-lucide="github"></i>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div class="project-info">
-                <div class="project-meta">
-                  <span class="project-category">Vanilla JS</span>
-                  <span class="project-status">Featured</span>
-                </div>
-                <h3 class="project-title">Spotify Clone</h3>
-                <p class="project-desc">
-                  A pixel-perfect frontend clone of Spotify's web player UI.
-                  Features a responsive sidebar with playlists, album artwork
-                  grid, song lists, and a fully styled playback control bar at
-                  the bottom — all built with pure HTML and CSS.
-                </p>
-
-                <div class="project-tech-tags">
-                  <span class="tech-tag">HTML5</span>
-                  <span class="tech-tag">CSS3</span>
-                </div>
-
-                <div class="project-actions">
-                  <a
-                    href="https://github.com/Iyazuddin/Spotify_Clone"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-primary btn-sm"
-                    id="spotify-code-btn"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      style="margin-right: 4px"
-                    >
-                      <path
-                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                      />
-                    </svg>
-                    View Code
-                  </a>
+                  <p class="project-desc">
+                    A pixel-perfect frontend clone of Spotify's web player —
+                    responsive sidebar, album grid, song lists, and a fully
+                    styled playback bar, all in pure HTML and CSS.
+                  </p>
+                  <div class="project-tech-tags">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Quiz Spark Card -->
-            <div
-              class="project-card scroll-reveal delay-400"
-              data-category="vanilla"
-            >
-              <div class="project-image-container">
-                <img
-                  src="assets/quiz_spark.png"
-                  alt="Quiz Spark Web App Mockup"
-                  class="project-img"
-                />
-                <div class="project-overlay">
-                  <div class="overlay-links">
-                    <a
-                      href="https://github.com/Iyazuddin/Quiz_Spark"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="project-overlay-link"
-                      title="View Code"
-                      id="quiz-overlay-code"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+            <!-- Quiz Spark -->
+            <div class="project-card scroll-reveal" data-category="vanilla">
+              <div class="project-row-inner">
+                <span class="project-num">_04</span>
+                <div class="project-content">
+                  <div class="project-top">
+                    <h3 class="project-title">Quiz Spark</h3>
+                    <div class="project-links">
+                      <a
+                        href="https://github.com/Iyazuddin/Quiz_Spark"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="View Code"
+                        id="quiz-code-link"
                       >
-                        <path
-                          d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                        />
-                      </svg>
-                    </a>
+                        <i data-lucide="github"></i>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div class="project-info">
-                <div class="project-meta">
-                  <span class="project-category">Vanilla JS</span>
-                  <span class="project-status">Featured</span>
-                </div>
-                <h3 class="project-title">Quiz Spark</h3>
-                <p class="project-desc">
-                  An interactive quiz application that tests users' knowledge
-                  with multiple-choice questions. Features a real-time score
-                  tracker, progress indicators, instant feedback on answers, and
-                  a clean, engaging UI for an enjoyable learning experience.
-                </p>
-
-                <div class="project-tech-tags">
-                  <span class="tech-tag">HTML5</span>
-                  <span class="tech-tag">CSS3</span>
-                  <span class="tech-tag">JavaScript</span>
-                </div>
-
-                <div class="project-actions">
-                  <a
-                    href="https://github.com/Iyazuddin/Quiz_Spark"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-primary btn-sm"
-                    id="quiz-code-btn"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      style="margin-right: 4px"
-                    >
-                      <path
-                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                      />
-                    </svg>
-                    View Code
-                  </a>
+                  <p class="project-desc">
+                    An interactive quiz app with a real-time score tracker,
+                    progress indicators, and instant feedback on every answer.
+                  </p>
+                  <div class="project-tech-tags">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -860,117 +616,108 @@
       <!-- Contact Section -->
       <section id="contact" class="contact-section">
         <div class="container">
-          <div class="section-header scroll-reveal">
-            <span class="section-tag">04. Connection</span>
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="title-underline"></div>
-            <p class="section-subtitle">
-              Have a project in mind, an opportunity, or just want to say hi?
-              Feel free to drop a message!
+          <div class="contact-heading scroll-reveal">
+            <h2>Have a project <span class="text-primary">in mind?</span></h2>
+            <p>
+              I'm always open to new projects, creative ideas, or opportunities
+              to be part of your vision. Drop me a message and let's build
+              something great.
             </p>
           </div>
 
           <div class="contact-grid">
-            <!-- Contact Info Card -->
+            <!-- Contact Info -->
             <div class="contact-info-wrapper scroll-reveal">
-              <div class="glass-card contact-details-card">
-                <h3>Let's collaborate</h3>
-                <p>
-                  I'm always open to discussing new projects, creative ideas, or
-                  opportunities to be part of your vision.
-                </p>
-
-                <div class="contact-info-list">
-                  <div class="contact-item">
-                    <div class="contact-icon-box text-accent-cyan">
-                      <i data-lucide="mail"></i>
-                    </div>
-                    <div class="contact-item-text">
-                      <span class="label">Email Me</span>
-                      <a href="mailto:ayazuddin31j@gmail.com" class="value"
-                        >ayazuddin31j@gmail.com</a
-                      >
-                    </div>
+              <div class="contact-info-list">
+                <div class="contact-item">
+                  <div class="contact-icon-box">
+                    <i data-lucide="mail"></i>
                   </div>
-
-                  <div class="contact-item">
-                    <div class="contact-icon-box text-accent-violet">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-                        />
-                        <rect width="4" height="12" x="2" y="9" />
-                        <circle cx="4" cy="4" r="2" />
-                      </svg>
-                    </div>
-                    <div class="contact-item-text">
-                      <span class="label">LinkedIn</span>
-                      <a
-                        href="https://www.linkedin.com/in/iyaz-uddin-99536834b"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="value"
-                        >linkedin.com/in/iyaz-uddin-99536834b</a
-                      >
-                    </div>
+                  <div class="contact-item-text">
+                    <span class="label">Email Me</span>
+                    <a href="mailto:ayazuddin31j@gmail.com" class="value"
+                      >ayazuddin31j@gmail.com</a
+                    >
                   </div>
+                </div>
 
-                  <div class="contact-item">
-                    <div class="contact-icon-box text-accent-emerald">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
-                        />
-                      </svg>
-                    </div>
-                    <div class="contact-item-text">
-                      <span class="label">GitHub</span>
-                      <a
-                        href="https://github.com/Iyazuddin"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="value"
-                        >github.com/Iyazuddin</a
-                      >
-                    </div>
+                <div class="contact-item">
+                  <div class="contact-icon-box">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                      />
+                      <rect width="4" height="12" x="2" y="9" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
                   </div>
+                  <div class="contact-item-text">
+                    <span class="label">LinkedIn</span>
+                    <a
+                      href="https://www.linkedin.com/in/iyaz-uddin-99536834b"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="value"
+                      >linkedin.com/in/iyaz-uddin-99536834b</a
+                    >
+                  </div>
+                </div>
 
-                  <div class="contact-item">
-                    <div class="contact-icon-box text-accent-cyan">
-                      <i data-lucide="map-pin"></i>
-                    </div>
-                    <div class="contact-item-text">
-                      <span class="label">Location</span>
-                      <span class="value">India</span>
-                    </div>
+                <div class="contact-item">
+                  <div class="contact-icon-box">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+                      />
+                    </svg>
+                  </div>
+                  <div class="contact-item-text">
+                    <span class="label">GitHub</span>
+                    <a
+                      href="https://github.com/Iyazuddin"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="value"
+                      >github.com/Iyazuddin</a
+                    >
+                  </div>
+                </div>
+
+                <div class="contact-item">
+                  <div class="contact-icon-box">
+                    <i data-lucide="map-pin"></i>
+                  </div>
+                  <div class="contact-item-text">
+                    <span class="label">Location</span>
+                    <span class="value">India</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Contact Form Card -->
+            <!-- Contact Form -->
             <div class="contact-form-wrapper scroll-reveal delay-200">
-              <div class="glass-card form-card">
+              <div class="form-card">
                 <form id="contact-form" class="contact-form">
                   <input
                     type="hidden"
@@ -996,9 +743,6 @@
                         />
                       </div>
                     </div>
-                  </div>
-
-                  <div class="form-row">
                     <div class="form-group">
                       <label for="form-email">Your Email</label>
                       <div class="input-wrapper">
@@ -1014,38 +758,31 @@
                     </div>
                   </div>
 
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="form-subject">Subject</label>
-                      <div class="input-wrapper">
-                        <i data-lucide="bookmark" class="input-icon"></i>
-                        <input
-                          type="text"
-                          id="form-subject"
-                          name="subject"
-                          required
-                          placeholder="Project Inquiry"
-                        />
-                      </div>
+                  <div class="form-group">
+                    <label for="form-subject">Subject</label>
+                    <div class="input-wrapper">
+                      <i data-lucide="bookmark" class="input-icon"></i>
+                      <input
+                        type="text"
+                        id="form-subject"
+                        name="subject"
+                        required
+                        placeholder="Project Inquiry"
+                      />
                     </div>
                   </div>
 
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="form-message">Message</label>
-                      <div class="input-wrapper align-start">
-                        <i
-                          data-lucide="message-square"
-                          class="input-icon text-top"
-                        ></i>
-                        <textarea
-                          id="form-message"
-                          name="message"
-                          required
-                          rows="5"
-                          placeholder="Tell me about your project or message..."
-                        ></textarea>
-                      </div>
+                  <div class="form-group">
+                    <label for="form-message">Message</label>
+                    <div class="input-wrapper align-start">
+                      <i data-lucide="message-square" class="input-icon text-top"></i>
+                      <textarea
+                        id="form-message"
+                        name="message"
+                        required
+                        rows="5"
+                        placeholder="Tell me about your project or message..."
+                      ></textarea>
                     </div>
                   </div>
 
@@ -1068,27 +805,17 @@
 
     <!-- Footer -->
     <footer class="footer">
+      <div class="footer-watermark" aria-hidden="true">Iyazuddin</div>
       <div class="container footer-container">
-        <div class="footer-brand">
+        <div class="footer-top">
           <a href="#home" class="logo">
-            <span class="logo-accent">&lt;</span>Iyazuddin<span
-              class="logo-accent"
-            >
-              /&gt;</span
-            >
+            Iyazuddin<span class="logo-dot">.</span>
           </a>
-          <p>Frontend Developer | Designing high-fidelity web experiences.</p>
+          <p class="footer-note">
+            Design &amp; built by <strong>Iyazuddin</strong> — Frontend
+            Developer
+          </p>
         </div>
-
-        <div class="footer-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </div>
-
-        <div class="footer-divider"></div>
 
         <div class="footer-bottom">
           <p class="copyright">&copy; 2026 Iyazuddin. All rights reserved.</p>

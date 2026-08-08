@@ -109,57 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==========================================================================
-  // TYPEWRITER EFFECT
-  // ==========================================================================
-  const typewriterElement = document.getElementById('typewriter');
-  const words = ['Frontend Developer.', 'BCA Student.', 'React Enthusiast.', 'Problem Solver.'];
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let typingSpeed = 100;
-
-  const type = () => {
-    const currentWord = words[wordIndex];
-    
-    if (isDeleting) {
-      // Remove char
-      typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
-      charIndex--;
-      typingSpeed = 50; // faster deletion
-    } else {
-      // Add char
-      typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
-      charIndex++;
-      typingSpeed = 120; // standard typing
-    }
-
-    // Handle word switching logic
-    if (!isDeleting && charIndex === currentWord.length) {
-      // Pause at full word
-      typingSpeed = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      typingSpeed = 500; // brief pause before next word
-    }
-
-    setTimeout(type, typingSpeed);
-  };
-
-  if (typewriterElement) {
-    setTimeout(type, 1000); // Start after 1 second delay
-  }
-
-
-  // ==========================================================================
   // INTERACTIVE PARTICLE CANVAS BACKGROUND
   // ==========================================================================
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
   
   let particlesArray = [];
-  const maxParticles = 65; // Balanced performance & aesthetics
+  const maxParticles = 45; // Subtle on the new dark-gray palette
   
   // Track Mouse Position
   const mouse = {
@@ -186,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.size = Math.random() * 2 + 1; // particle size (1px to 3px)
       this.speedX = (Math.random() - 0.5) * 0.4; // slow drift
       this.speedY = (Math.random() - 0.5) * 0.4;
-      this.baseColor = Math.random() > 0.5 ? 'rgba(6, 182, 212,' : 'rgba(139, 92, 246,'; // cyan or violet
+      this.baseColor = Math.random() > 0.5 ? 'rgba(0, 230, 101,' : 'rgba(0, 200, 230,'; // neon green or cyan
       this.alpha = Math.random() * 0.3 + 0.15; // static opacity
     }
 
@@ -258,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.beginPath();
           ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
           ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-          ctx.strokeStyle = `rgba(94, 234, 212, ${lineAlpha})`; // teal/cyan connections
+          ctx.strokeStyle = `rgba(0, 230, 101, ${lineAlpha})`; // neon-green connections
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
@@ -417,4 +373,323 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 6000);
     });
   }
+
+
+  // ==========================================================================
+  // PREMIUM INTERACTION EFFECTS
+  // ==========================================================================
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  // Magnetic buttons — elements drift subtly toward the cursor, then glide back
+  const initMagnetic = () => {
+    const elements = document.querySelectorAll('.magnetic');
+    if (!elements.length) return;
+
+    const strength = 0.3;
+    const maxShift = 8;
+
+    elements.forEach(el => {
+      let targetX = 0, targetY = 0, currentX = 0, currentY = 0, running = false;
+
+      const loop = () => {
+        currentX += (targetX - currentX) * 0.18;
+        currentY += (targetY - currentY) * 0.18;
+        el.style.translate = `${currentX.toFixed(2)}px ${currentY.toFixed(2)}px`;
+
+        if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+          requestAnimationFrame(loop);
+        } else {
+          running = false;
+        }
+      };
+
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        targetX = (e.clientX - (rect.left + rect.width / 2)) * strength;
+        targetY = (e.clientY - (rect.top + rect.height / 2)) * strength;
+        targetX = Math.max(-maxShift, Math.min(maxShift, targetX));
+        targetY = Math.max(-maxShift, Math.min(maxShift, targetY));
+
+        if (!running) {
+          running = true;
+          requestAnimationFrame(loop);
+        }
+      });
+
+      el.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+        if (!running) {
+          running = true;
+          requestAnimationFrame(loop);
+        }
+      });
+    });
+  };
+
+  // 3D tilt + specular glare on the hero profile card
+  const initTilt = () => {
+    const wrap = document.getElementById('hero-tilt');
+    if (!wrap) return;
+
+    const card = wrap.querySelector('.image-glass-card');
+    if (!card) return;
+
+    const maxTilt = 10;
+    let targetX = 0, targetY = 0, currentX = 0, currentY = 0, running = false;
+
+    const loop = () => {
+      currentX += (targetX - currentX) * 0.12;
+      currentY += (targetY - currentY) * 0.12;
+      card.style.transform = `rotateX(${currentX.toFixed(2)}deg) rotateY(${currentY.toFixed(2)}deg)`;
+
+      if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+        requestAnimationFrame(loop);
+      } else {
+        running = false;
+      }
+    };
+
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+
+      targetY = (px - 0.5) * maxTilt;
+      targetX = (0.5 - py) * maxTilt;
+
+      card.style.setProperty('--gx', `${(px * 100).toFixed(1)}%`);
+      card.style.setProperty('--gy', `${(py * 100).toFixed(1)}%`);
+
+      if (!running) {
+        running = true;
+        requestAnimationFrame(loop);
+      }
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+      targetX = 0;
+      targetY = 0;
+      if (!running) {
+        running = true;
+        requestAnimationFrame(loop);
+      }
+    });
+  };
+
+  // Ambient cursor spotlight
+  const initCursorGlow = () => {
+    const glow = document.getElementById('cursor-glow');
+    if (!glow) return;
+
+    const offset = 260; // half of the 520px glow
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+
+    const loop = () => {
+      currentX += (targetX - currentX) * 0.16;
+      currentY += (targetY - currentY) * 0.16;
+      glow.style.transform = `translate(${currentX - offset}px, ${currentY - offset}px)`;
+      requestAnimationFrame(loop);
+    };
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      glow.classList.add('visible');
+    });
+
+    document.addEventListener('mouseleave', () => {
+      glow.classList.remove('visible');
+    });
+
+    requestAnimationFrame(loop);
+  };
+
+  // Animated stat counters
+  const initCounters = () => {
+    const counters = document.querySelectorAll('.stat-num[data-count]');
+    if (!counters.length) return;
+
+    const animate = (el) => {
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+
+      if (prefersReducedMotion) {
+        el.textContent = `${target}${suffix}`;
+        return;
+      }
+
+      const duration = 1400;
+      const start = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = `${Math.round(target * eased)}${suffix}`;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = `${target}${suffix}`;
+        }
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animate(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    counters.forEach(counter => observer.observe(counter));
+  };
+
+  // Cursor spotlight that follows the mouse across project cards
+  const initCardSpotlight = () => {
+    if (!finePointer) return;
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+      });
+    });
+  };
+
+  // Custom velocity-rotating cursor — mirrors the pointer on abdulrehmanwaseem.me.
+  // A teardrop arrow follows the mouse with spring physics, rotates to point in
+  // the direction of travel, and dips to 0.95 scale while moving.
+  const initCustomCursor = () => {
+    const cursor = document.getElementById('custom-cursor');
+    if (!cursor) return;
+
+    const needle = cursor.querySelector('svg');
+    const root = document.documentElement;
+
+    // Damped spring integrator (matches Framer Motion's default spring model)
+    const createSpring = (stiffness, damping, initial) => {
+      const s = {
+        value: initial,
+        velocity: 0,
+        target: initial,
+        step(dt) {
+          const force = -stiffness * (s.value - s.target) - damping * s.velocity;
+          s.velocity += force * dt;
+          s.value += s.velocity * dt;
+          return s.value;
+        }
+      };
+      return s;
+    };
+
+    const springX = createSpring(400, 45, 0);      // position — tight follow
+    const springY = createSpring(400, 45, 0);
+    const springRot = createSpring(300, 60, 0);    // rotation — smooth ease
+    const springScale = createSpring(400, 30, 0);  // scale — entrance + move dip
+
+    let lastX = 0, lastY = 0, lastTime = 0;
+    let currentAngle = 0, accumulated = 0;
+    let scaleTimer = null;
+    let entrancePlayed = false;
+    let visible = false;
+    let lastFrame = performance.now();
+
+    const show = () => {
+      if (visible) return;
+      visible = true;
+      cursor.classList.add('visible');
+      if (!entrancePlayed) {
+        entrancePlayed = true;
+        springScale.value = 0;
+        springScale.velocity = 0;
+        springScale.target = 1;
+      }
+    };
+
+    const hide = () => {
+      visible = false;
+      cursor.classList.remove('visible');
+    };
+
+    const tick = (now) => {
+      const dt = Math.min((now - lastFrame) / 1000, 0.033);
+      lastFrame = now;
+
+      const x = springX.step(dt);
+      const y = springY.step(dt);
+      const rot = springRot.step(dt);
+      const s = springScale.step(dt);
+
+      cursor.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+      needle.style.transform = `translate(-50%, -50%) rotate(${rot.toFixed(2)}deg) scale(${s.toFixed(3)})`;
+
+      requestAnimationFrame(tick);
+    };
+
+    const onMove = (e) => {
+      const now = performance.now();
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      const dtMs = now - lastTime;
+
+      springX.target = e.clientX;
+      springY.target = e.clientY;
+
+      show();
+
+      // First event — just settle position, skip the (huge) fake velocity
+      if (lastTime === 0) {
+        lastX = e.clientX;
+        lastY = e.clientY;
+        lastTime = now;
+        return;
+      }
+
+      if (dtMs > 0) {
+        const speed = Math.hypot(dx, dy) / dtMs; // px/ms
+        if (speed > 0.1) {
+          // Direction of travel; +90° so the arrow tip leads the movement
+          const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+          let delta = angle - currentAngle;
+          if (delta > 180) delta -= 360;
+          else if (delta < -180) delta += 360;
+          accumulated += delta;
+          currentAngle = angle;
+
+          springRot.target = accumulated;
+          springScale.target = 0.95;
+          clearTimeout(scaleTimer);
+          scaleTimer = setTimeout(() => { springScale.target = 1; }, 150);
+        }
+      }
+
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastTime = now;
+    };
+
+    root.classList.add('custom-cursor');
+    window.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('mouseleave', hide);
+    document.addEventListener('mouseenter', show);
+    requestAnimationFrame(tick);
+  };
+
+  if (!prefersReducedMotion && finePointer) {
+    initMagnetic();
+    initTilt();
+    initCursorGlow();
+    initCustomCursor();
+  }
+  initCounters();
+  initCardSpotlight();
 });
