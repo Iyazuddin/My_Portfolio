@@ -1077,7 +1077,7 @@ section {
 .footer-watermark {
   position: absolute;
   left: 50%;
-  bottom: -3vw;
+  bottom: 1vw;
   transform: translateX(-50%);
   font-family: var(--font-heading);
   text-transform: uppercase;
